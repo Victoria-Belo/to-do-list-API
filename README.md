@@ -18,9 +18,12 @@
 <p><img src="https://img.shields.io/badge/MAIN-8A2BE2?logo=git&label=BRANCH&labelColor=white" /></p>
 <br>
 
-### DEMONSTRAÇÃO
-
-
+### ANDAMENTO
+  - [x] Estruturar projeto
+  - [x] Configuraçã
+  - [x] Criar Usuário
+  - [] Criar autenticação
+  - [] Vincular Usuário a Lista
 
 
 
