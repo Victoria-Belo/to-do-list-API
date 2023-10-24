@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './controller/app.controller';
-import { AppService } from './service/app.service';
+import { AppController } from '../controller/app.controller';
+import { AppService } from '../service/app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppEntity } from './models/app.entity';
+import { AppEntity } from '../models/app.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([AppEntity])],

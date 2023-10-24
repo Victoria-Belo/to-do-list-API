@@ -6,23 +6,27 @@ import { AuthInterface } from "src/interface/auth.interface";
 import { UserEntity } from "src/models/user.entity";
 import { Repository } from "typeorm";
 import * as bcrypt from 'bcrypt';
+import { JwtService } from "@nestjs/jwt";
 
 @Injectable()
 export class UserService implements UserInterface , AuthInterface {
 
-    constructor(@InjectRepository(UserEntity) private userRepository : Repository<UserEntity>){}
+    constructor(@InjectRepository(UserEntity) private userRepository : Repository<UserEntity>,  
+    private jwtService: JwtService){}
 
     // Auth Interface
     
     async login(credential: any): Promise<any> {    
         const user = await this.userRepository.findOne({where:{ email: credential.email}});        
         const pass = await this.unhashing(credential.password, user.password);
-        console.log('resultado User :', user, '\npass unhashing: ', pass);
         if(!user || !pass){
-            throw new HttpException(`Invalid credentials. Please, try again.`, HttpStatus.BAD_REQUEST);
+            throw new HttpException(`Invalid credentials. Please, try again.`, HttpStatus.UNAUTHORIZED);
         }
         // preciso enviar um token de validação!
-        return 'TU TÁ ON, DEV :D!';        
+        const payload = { sub: user.id, username: user.email };
+        return {
+            access_token: this.jwtService.sign(payload, { secret: process.env.JWT_SECRET }),
+        };
     }   
 
     async hashing(password: string): Promise<string> {

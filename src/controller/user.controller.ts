@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, ValidationPipe } from "@nestjs/common";
 import { UsePipes } from "@nestjs/common/decorators/core/use-pipes.decorator";
 import { UserDTO } from "src/dto/user.dto";
+import { AuthGuard } from "src/jwtAuth/auth.guard";
 import { UserService } from "src/service/user.service";
 
 @Controller('/api/user')
@@ -8,7 +9,7 @@ export class UserController{
     constructor( private userService : UserService){}
 
     @Post('login')
-    login(@Body() credential:any  ){
+    login(@Body() credential:any){
         return this.userService.login(credential);
     }
 
@@ -19,6 +20,7 @@ export class UserController{
     }
 
     @Get()
+    @UseGuards(AuthGuard)
     findAll(){
         return this.userService.findAll();
     }
