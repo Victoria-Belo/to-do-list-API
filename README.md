@@ -23,7 +23,8 @@
   - [x] Configuração
   - [x] Criar Lista
   - [x] Criar Usuário
-  - [ ] Criar autenticação
+  - [x] Criar autenticação do usuário
+  - [x] Configurar autorizações do usuário
   - [ ] Vincular Usuário a Lista
 
 
