@@ -15,7 +15,7 @@
 
 
 ## BRANCHS
-<p align="center"><img src="https://img.shields.io/badge/MAIN-8A2BE2?logo=git&label=BRANCH&labelColor=white" /></p>
+<p><img src="https://img.shields.io/badge/MAIN-8A2BE2?logo=git&label=BRANCH&labelColor=white" /></p>
 <br>
 
 ### DEMONSTRAÇÃO
