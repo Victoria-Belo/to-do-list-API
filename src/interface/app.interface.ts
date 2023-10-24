@@ -1,5 +1,5 @@
 import { AppEntity } from "src/models/app.entity";
-import { AppDTO } from "./dto/app.dto";
+import { AppDTO } from "../dto/app.dto";
 
 export interface AppInterface {
   findAll(): Promise<AppEntity[]>;

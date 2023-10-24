@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TaskModule } from './task.module';
-import { AppEntity } from './models/app.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { TaskModule } from './task.module';
+import { UserModule } from './user.module';
 
 @Module({
-  imports: [TaskModule, 
+  imports: [UserModule, TaskModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'src/migration/database.sqlite',

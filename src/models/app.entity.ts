@@ -1,4 +1,5 @@
-import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { UserEntity } from './user.entity';
 
 @Entity()
 export class AppEntity {
@@ -22,9 +23,11 @@ export class AppEntity {
 
   @UpdateDateColumn()
   updatedAt: Date; 
+
+  @ManyToOne(() => UserEntity, (user)=> user.tasks)
+  user : UserEntity[];
  
-  constructor(title: string, task: string, author: string, status: boolean) {
-    this.id;
+  constructor(title: string, task: string, author: string, status: boolean) {   
     this.title = title;
     this.task = task;
     this.author = author;

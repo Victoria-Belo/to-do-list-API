@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AppInterface } from 'src/interface/app.interface';
-import { AppDTO } from 'src/interface/dto/app.dto';
+import { AppDTO } from 'src/dto/app.dto';
 import { AppEntity } from 'src/models/app.entity';
 import { Repository } from 'typeorm';
 
@@ -25,7 +25,7 @@ export class AppService implements AppInterface {
   async create(dto: AppDTO): Promise<AppEntity> {
     try {
       // padronização de status
-      dto.status = dto.status === undefined ? false : dto.status;
+      dto.status = dto.status ?? false;
       const taskInstance = new AppEntity(
         dto.title,
         dto.task,
@@ -45,10 +45,10 @@ export class AppService implements AppInterface {
       throw new HttpException(`ID ${id} NOT FOUND`, HttpStatus.NOT_FOUND);
     }    
     try {
-      task.title = dto.title === undefined ? task.title : dto.title;
-      task.task = dto.task === undefined ? task.task : dto.task;
-      task.author = dto.author === undefined ? task.author : dto.author;
-      task.status = dto.status === undefined ? task.status : dto.status;
+      task.title = dto.title ?? task.title;
+      task.task = dto.task ?? task.task ;
+      task.author = dto.author  ?? task.author ;
+      task.status = dto.status ?? task.status;
       return await this.appRepository.save(task);        
     } catch (error) {      
           throw new HttpException(`${error} `, HttpStatus.BAD_REQUEST);       

@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from '@nestjs/common';
 import { AppService } from '../service/app.service';
-import { AppDTO } from 'src/interface/dto/app.dto';
+import { AppDTO } from 'src/dto/app.dto';
+import { UsePipes } from '@nestjs/common/decorators/core/use-pipes.decorator';
 
-@Controller('/api')
+@Controller('api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
   
@@ -17,12 +18,13 @@ export class AppController {
   }
 
   @Post()
+  @UsePipes(new ValidationPipe({ transform: true })) 
   create(@Body() dto: AppDTO) {
     console.log(dto)
     return this.appService.create(dto);
   }
 
-  @Put(':id')
+  @Put(':id')  
   update(@Param('id') id: number, @Body() dto: AppDTO) {
     return this.appService.update(id, dto);
   }
