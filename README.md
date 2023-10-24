@@ -14,20 +14,21 @@
  - [ESTRUTURA](#estrutura)
 
 
-## BRANCHS
+### BRANCHS
 <p><img src="https://img.shields.io/badge/MAIN-8A2BE2?logo=git&label=BRANCH&labelColor=white" /></p>
 <br>
 
 ### ANDAMENTO
   - [x] Estruturar projeto
   - [x] Configuração
+  - [x] Criar Lista
   - [x] Criar Usuário
   - [ ] Criar autenticação
   - [ ] Vincular Usuário a Lista
 
 
 
-## ESTRUTURA
+### ESTRUTURA
 <p align="center"></p>
 
 
