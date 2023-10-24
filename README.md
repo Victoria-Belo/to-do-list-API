@@ -22,8 +22,8 @@
   - [x] Estruturar projeto
   - [x] Configuraçã
   - [x] Criar Usuário
-  - [_ ] Criar autenticação
-  - [_] Vincular Usuário a Lista
+  - [ ] Criar autenticação
+  - [ ] Vincular Usuário a Lista
 
 
 
