@@ -21,6 +21,7 @@
 ### ANDAMENTO
   - [x] Estruturar projeto
   - [x] Configuração
+  - [x] Criar Lista
   - [x] Criar Usuário
   - [ ] Criar autenticação
   - [ ] Vincular Usuário a Lista
