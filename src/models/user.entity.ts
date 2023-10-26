@@ -23,6 +23,7 @@ export class UserEntity{
 
     @OneToMany(()=> AppEntity, (tasks) => tasks.user, {cascade: true})
     tasks: AppEntity[]
+   
 
     constructor(name:string, email:string, password:string){
         this.name = name;

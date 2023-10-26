@@ -27,6 +27,9 @@ export class AppEntity {
   @ManyToOne(() => UserEntity, (user)=> user.tasks)
   user : UserEntity;
  
+  @Column()
+  userId: number
+  
   constructor(title: string, task: string, author: string, status: boolean) {   
     this.title = title;
     this.task = task;

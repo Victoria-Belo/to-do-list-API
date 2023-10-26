@@ -13,7 +13,7 @@ export class AppService implements AppInterface {
   @InjectRepository(UserEntity) private userRepository : Repository<UserEntity>){}
 
   async findAll(idUser:number): Promise<AppEntity[]> {
-    return this.appRepository.find({relations:{ user: true}});
+    return this.appRepository.find({where: {userId: idUser}});
   }
 
   async findById(id: number): Promise<AppEntity | null> {
@@ -23,7 +23,7 @@ export class AppService implements AppInterface {
     }
     return task;
   }
-  
+
   async create(dto: AppDTO, idUser: number): Promise<any> {
     try {
       const user = await this.userRepository.find({where: {id: idUser}, relations: {
@@ -41,6 +41,7 @@ export class AppService implements AppInterface {
       );
       
       taskInstance.user = user[0];      
+      taskInstance.userId = user[0].id;
       await this.appRepository.save(taskInstance);      
   
       user[0].tasks.push(taskInstance);
