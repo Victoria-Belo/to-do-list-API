@@ -21,9 +21,10 @@
 ### ANDAMENTO
   - [x] Estruturar projeto
   - [x] Configuração
-  - [x] Criar Lista
-  - [x] Criar Usuário
-  - [ ] Criar autenticação
+  - [x] CRUD Lista
+  - [x] CRUD Usuário
+  - [x] Criar autenticação do usuário
+  - [x] Configurar autorizações do usuário
   - [ ] Vincular Usuário a Lista
 
 
