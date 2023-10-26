@@ -6,8 +6,7 @@ export class AppDTO {
 
   @IsNotEmpty()
   task: string;
-
-  @IsNotEmpty()
+  
   author: string;
 
   status: boolean;

@@ -21,7 +21,7 @@ export class UserEntity{
     @UpdateDateColumn()
     updatedAt: Date;     
 
-    @OneToMany(()=> AppEntity, (tasks) => tasks.user)
+    @OneToMany(()=> AppEntity, (tasks) => tasks.user, {cascade: true})
     tasks: AppEntity[]
 
     constructor(name:string, email:string, password:string){
@@ -29,4 +29,5 @@ export class UserEntity{
         this.email = email;
         this.password = password;
     }
+
 }

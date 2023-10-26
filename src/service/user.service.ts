@@ -44,8 +44,9 @@ export class UserService implements UserInterface , AuthInterface {
         }               
         try {
             const hashingPassword = await this.hashing(dto.password); 
-            const userInstance = new UserEntity(dto.name, dto.email, hashingPassword);
-            return await this.userRepository.save(userInstance);
+            const userInstance = new UserEntity(dto.name, dto.email, hashingPassword);  
+            userInstance.tasks = [];          
+            return await this.userRepository.save(userInstance);           
         } catch (error) {
                 console.error(error);
                 throw new HttpException(`${error}`, HttpStatus.BAD_REQUEST);
@@ -55,11 +56,11 @@ export class UserService implements UserInterface , AuthInterface {
     // User Interface
 
     async findAll(): Promise<UserEntity[]> {
-        return this.userRepository.find();
+        return this.userRepository.find({relations: { tasks: true}});
     }
 
     async findById(id: number): Promise<UserEntity> {
-        const user = await this.userRepository.findOne({where: {id: id}});
+        const user = await this.userRepository.findOne({where: {id: id}, relations: {tasks: true}});
         if(!user){
             throw new HttpException(`ID ${id} NOT FOUND`, HttpStatus.NOT_FOUND);
         }

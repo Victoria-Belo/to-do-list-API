@@ -25,13 +25,13 @@ export class AppEntity {
   updatedAt: Date; 
 
   @ManyToOne(() => UserEntity, (user)=> user.tasks)
-  user : UserEntity[];
+  user : UserEntity;
  
   constructor(title: string, task: string, author: string, status: boolean) {   
     this.title = title;
     this.task = task;
     this.author = author;
-    this.status = status;
+    this.status = status;  
   }
 
 }

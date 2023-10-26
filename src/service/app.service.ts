@@ -4,14 +4,16 @@ import { AppInterface } from 'src/interface/app.interface';
 import { AppDTO } from 'src/dto/app.dto';
 import { AppEntity } from 'src/models/app.entity';
 import { Repository } from 'typeorm';
+import { UserEntity } from 'src/models/user.entity';
 
 @Injectable()
 export class AppService implements AppInterface {
 
-  constructor(@InjectRepository(AppEntity) private appRepository : Repository<AppEntity>){}
+  constructor(@InjectRepository(AppEntity) private appRepository : Repository<AppEntity>,
+  @InjectRepository(UserEntity) private userRepository : Repository<UserEntity>){}
 
-  async findAll(): Promise<AppEntity[]> {
-    return this.appRepository.find();
+  async findAll(idUser:number): Promise<AppEntity[]> {
+    return this.appRepository.find({relations:{ user: true}});
   }
 
   async findById(id: number): Promise<AppEntity | null> {
@@ -21,23 +23,47 @@ export class AppService implements AppInterface {
     }
     return task;
   }
-
-  async create(dto: AppDTO): Promise<AppEntity> {
+  
+  async create(dto: AppDTO, idUser: number): Promise<any> {
     try {
-      // padronização de status
+      const user = await this.userRepository.find({where: {id: idUser}, relations: {
+        tasks: true,
+      }});       
+     
       dto.status = dto.status ?? false;
+      dto.author = user[0].name;
+      
       const taskInstance = new AppEntity(
         dto.title,
         dto.task,
         dto.author,
-        dto.status,
+        dto.status       
       );
-      return this.appRepository.save(taskInstance);     
+      
+      taskInstance.user = user[0];      
+      await this.appRepository.save(taskInstance);      
+  
+      user[0].tasks.push(taskInstance);
+      await this.userRepository.save(user);
+      
+      return {
+        id: taskInstance.id,
+        title: dto.title,
+        task: dto.task,
+        author: dto.author,
+        status: dto.status,
+        user: {
+          userId: user[0].id,
+          name: user[0].name,
+          email: user[0].email,
+        },
+      };
     } catch (error) {
       console.error(error);
       throw new HttpException(`${error} `, HttpStatus.BAD_REQUEST);
     }
   }
+  
 
   async update(id: number, dto: AppDTO): Promise<AppEntity> {    
     const task = await this.appRepository.findOne({ where: { id: id } });
@@ -46,8 +72,7 @@ export class AppService implements AppInterface {
     }    
     try {
       task.title = dto.title ?? task.title;
-      task.task = dto.task ?? task.task ;
-      task.author = dto.author  ?? task.author ;
+      task.task = dto.task ?? task.task ;   
       task.status = dto.status ?? task.status;
       return await this.appRepository.save(task);        
     } catch (error) {      

@@ -1,15 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards, ValidationPipe } from '@nestjs/common';
 import { AppService } from '../service/app.service';
 import { AppDTO } from 'src/dto/app.dto';
 import { UsePipes } from '@nestjs/common/decorators/core/use-pipes.decorator';
+import { AuthGuard } from 'src/jwtAuth/auth.guard';
 
 @Controller('api')
 export class AppController {
   constructor(private readonly appService: AppService) {}
   
   @Get()
-  findAll() {
-    return this.appService.findAll();
+  @UseGuards(AuthGuard)
+  findAll(@Req() req : any) {
+    // eu quero que o usuário veja apenas a lista de tarefas dele!
+    return this.appService.findAll(parseInt(req.user.sub));
   }
 
   @Get(':id')
@@ -18,10 +21,10 @@ export class AppController {
   }
 
   @Post()
+  @UseGuards(AuthGuard)
   @UsePipes(new ValidationPipe({ transform: true })) 
-  create(@Body() dto: AppDTO) {
-    console.log(dto)
-    return this.appService.create(dto);
+  create(@Body() dto: AppDTO, @Req() req : any) {
+    return this.appService.create(dto, parseInt(req.user.sub));
   }
 
   @Put(':id')  
