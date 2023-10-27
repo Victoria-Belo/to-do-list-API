@@ -5,7 +5,7 @@
   <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
   <img src="https://img.shields.io/badge/SQLite-07405E?style=for-the-badge&logo=sqlite&logoColor=white" />
   <img src="https://img.shields.io/badge/typeorm-323330?style=for-the-badge&logo=sequelize&logoColor=blue" />
-  <img src="https://img.shields.io/badge/ANDAMENTO-green?logo=github&label=STATUS" />
+  <img src="https://img.shields.io/badge/CONCLUÍDO-green?logo=github&label=STATUS" />
 </p>
 
 
