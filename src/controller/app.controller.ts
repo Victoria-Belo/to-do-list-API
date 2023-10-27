@@ -28,16 +28,18 @@ export class AppController {
   }
 
   @Put(':id')  
+  @UseGuards(AuthGuard)
   update(@Param('id') id: number, @Body() dto: AppDTO) {
     return this.appService.update(id, dto);
   }
 
   @Delete(':id')
+  @UseGuards(AuthGuard)
   delete(@Param('id') id: number) {
     return this.appService.delete(id);
   }
 
-  @Get()
+  @Get()  
   getHello(): string {
     return this.appService.getHello();
   }

@@ -19,7 +19,7 @@ export class UserController{
         return this.userService.register(dto);
     }
 
-    @Get()
+    @Get('adm')
     @UseGuards(AuthGuard)
     findAll(){
         return this.userService.findAll();
